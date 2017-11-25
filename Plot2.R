@@ -1,0 +1,8 @@
+png(filename = "Plot2.png")
+data1 <- read.table("household_power_consumption.txt", as.is = TRUE, sep = ";", header = TRUE, na.strings = "?")
+data1 <- subset(data1, Date %in% c("1/2/2007", "2/2/2007"))
+data1$datetime <- strptime(paste(data1$Date, data1$Time), format = "%d/%m/%Y %H:%M:%S")
+plot(data1$datetime, data1$Global_active_power, type = "n", xlab = "", ylab = "Global Active Power (kilowatts)", xaxt="n")
+axis(1, at=seq(min(data1$datetime), max(data1$datetime), length.out = 3), labels = c("Thu", "Fri", "Sat"),col = NA, col.ticks = 1)
+lines(data1$datetime, data1$Global_active_power)
+dev.off()
